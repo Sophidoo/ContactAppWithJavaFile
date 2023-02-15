@@ -4,6 +4,11 @@ public class Main {
     public static void main(String[] args) {
 
         ContactView view = new ContactView();
-        view.ContactConsole();
+
+        try{
+            view.ContactConsole();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

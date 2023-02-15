@@ -4,9 +4,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import static java.nio.file.Files.createFile;
 
@@ -222,5 +220,28 @@ public class ContactController implements ContactInterface {
             String exceptionAsString = sw.toString();
             return exceptionAsString;
         }
+    }
+
+    @Override
+    public Map<String, String> displayALlContacts() throws IOException {
+
+            Path path = Paths.get("C:\\Users\\sophi\\IdeaProjects\\ContactApp\\ContactApp.txt");
+
+            List<String> strings;
+
+            Map<String, String> map = new TreeMap<>();
+
+            if(!Files.exists(path)){
+                return map;
+            }
+
+            strings = Files.readAllLines(path);
+            int length = strings.size();
+
+            for(int i = 0; i < length; i++){
+                map.put(strings.get(i).split(":")[0], strings.get(i).split(":")[1]);
+            }
+            return  map;
+
     }
 }
