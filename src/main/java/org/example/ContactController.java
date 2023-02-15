@@ -47,7 +47,6 @@ public class ContactController implements ContactInterface {
         try{
             File file = new File("C:\\Users\\sophi\\IdeaProjects\\ContactApp\\ContactApp.txt");
 
-            System.out.println(Arrays.toString(contact.toArray()));
 
             if(!file.exists()) {
                 file.createNewFile();
