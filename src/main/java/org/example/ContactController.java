@@ -17,21 +17,17 @@ public class ContactController implements ContactInterface {
             if(Files.exists(path)){
                 strings = Files.readAllLines(path);
                 int length = strings.size();
-                if(strings.size() == 0){
-                    strings.add(contact.getFirstname() + " " + contact.getLastname() + ":" + contact.getContact());
-                    createFile(strings);
-                }else{
-                    for(int i = 0; i < length; i++){
-                        if(strings.get(i).split(":")[0].equalsIgnoreCase(contact.getFirstname() + " " + contact.getLastname())){
+                if (strings.size() != 0) {
+                    for (int i = 0; i < length; i++) {
+                        if (strings.get(i).split(":")[0].equalsIgnoreCase(contact.getFirstname() + " " + contact.getLastname())) {
                             return "Contact with that " + contact.getFirstname() + "  already exists";
                         }
                     }
 
-                    strings.add(contact.getFirstname() + " " + contact.getLastname() + ":" + contact.getContact());
-                    createFile(strings);
-                    return "Contact added Successfully";
-
                 }
+                strings.add(contact.getFirstname() + " " + contact.getLastname() + ":" + contact.getContact());
+                createFile(strings);
+                return "Contact added Successfully";
             }
 
             strings.add(contact.getFirstname() + " " + contact.getLastname() + ":" + contact.getContact());
@@ -51,17 +47,18 @@ public class ContactController implements ContactInterface {
         try{
             File file = new File("C:\\Users\\sophi\\IdeaProjects\\ContactApp\\ContactApp.txt");
 
+            System.out.println(Arrays.toString(contact.toArray()));
+
             if(!file.exists()) {
                 file.createNewFile();
+
 
                 FileWriter writer = new FileWriter(file);
                 BufferedWriter buffer = new BufferedWriter(writer);
 
-                for(int i = 0; i < contact.size(); i++){
-                    buffer.write(i);
-                    buffer.flush();
-                    buffer.newLine();
-                }
+                buffer.write(contact.get(0));
+                buffer.flush();
+                buffer.newLine();
 
                 buffer.close();
                 return "File Created Successfully at " + file;
@@ -99,7 +96,7 @@ public class ContactController implements ContactInterface {
                 strings = Files.readAllLines(path);
                 int length = strings.size();
                 if(strings.size() == 0){
-                    return "No Contact exists with name: " + contact.getName();
+                    return "No Contacts found, Please add contact";
                 }else{
                     for(int i = 0; i < length; i++){
                         if(strings.get(i).split(":")[0].equalsIgnoreCase(contact.getName() + " " + contact.getLname())){
@@ -111,7 +108,7 @@ public class ContactController implements ContactInterface {
                 }
             }
 
-            return "No Contacts found, Please add contact";
+            return "No Contact exists with name: " + contact.getName()  + " " + contact.getLname();
 
         }catch(Exception e){
             StringWriter sw = new StringWriter();
@@ -172,7 +169,7 @@ public class ContactController implements ContactInterface {
                     return "No Contact exists with name: " + contact.getName();
                 }else{
                     for(int i = 0; i < length; i++){
-                        if(strings.get(i).split(":")[0].contains(contact.getName().toLowerCase())){
+                        if(strings.get(i).split(":")[0].toLowerCase().contains(contact.getName().toLowerCase())){
                             values.add(strings.get(i));
                         }
                     }
