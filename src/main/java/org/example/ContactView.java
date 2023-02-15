@@ -45,8 +45,6 @@ public class ContactView {
                 System.out.println(contactfunc.addContact(contact));
             }
             else if(response == 2){
-
-
                 System.out.println(">> Please enter the Contact's First name you want to edit");
                 System.out.print(">>");
                 contact.setName(input.next().trim());
@@ -75,9 +73,17 @@ public class ContactView {
                 System.out.println(contactfunc.editContact(contact));
             }
             else if(response == 3){
-                System.out.println(">> Please enter the Contact's name");
-                System.out.print(">> ");
-                contact.setFirstname(input.next());
+                System.out.println(">> Please enter the Contact's First name you want to delete");
+                System.out.print(">>");
+                contact.setName(input.next().trim());
+                System.out.println();
+
+                System.out.println(">> Please enter the Contact's Last name you want to delete (for precision)");
+                System.out.print(">>");
+                contact.setLname(input.next().trim());
+                System.out.println();
+
+                System.out.println(contactfunc.deleteContact(contact));
             }
             else if(response == 4){
                 System.out.println("<1> Search by Name");
@@ -88,13 +94,15 @@ public class ContactView {
                 if(option == 1){
                     System.out.println(">> Please enter the Contact's Name");
                     System.out.print(">>");
-                    contact.setFirstname(input.next());
+                    contact.setName(input.next().trim());
                     System.out.println();
+                    System.out.println(contactfunc.searchContact(contact));
                 }else if(option == 2){
                     System.out.println(">> Please enter the Contact's Phone Number");
                     System.out.print(">>");
-                    contact.setFirstname(input.next());
+                    contact.setContact(input.next().trim());
                     System.out.println();
+                    System.out.println(contactfunc.searchContactByNum(contact));
                 }else{
                     System.out.println("Wrong Option");
                     System.out.println();
@@ -110,6 +118,7 @@ public class ContactView {
                 if(next.equalsIgnoreCase("yes")){
                     proceed = true;
                 }else{
+                    System.out.println(">> HAVE A NICE DAY!! <<");
                     proceed = false;
                 }
             }

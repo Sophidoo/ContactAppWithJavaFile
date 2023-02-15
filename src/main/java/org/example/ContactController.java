@@ -106,7 +106,7 @@ public class ContactController implements ContactInterface {
                     for(int i = 0; i < length; i++){
                         if(strings.get(i).split(":")[0].equalsIgnoreCase(contact.getName() + " " + contact.getLname())){
                             strings.remove(i);
-
+                            createFile(strings);
                             return "Contact Deleted Successfully";
                         }
                     }
@@ -160,6 +160,67 @@ public class ContactController implements ContactInterface {
 
     @Override
     public String searchContact(ContactModel contact) {
-        return null;
+        try{
+            Path path = Paths.get("C:\\Users\\sophi\\IdeaProjects\\ContactApp\\ContactApp.txt");
+
+            List<String> strings;
+
+            List<String> values = new ArrayList<>();
+
+            if(Files.exists(path)){
+                strings = Files.readAllLines(path);
+                int length = strings.size();
+                if(strings.size() == 0){
+                    return "No Contact exists with name: " + contact.getName();
+                }else{
+                    for(int i = 0; i < length; i++){
+                        if(strings.get(i).split(":")[0].contains(contact.getName().toLowerCase())){
+                            values.add(strings.get(i));
+                        }
+                    }
+                }
+            }
+
+            return values.toString();
+
+        }catch (Exception e) {
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+            return exceptionAsString;
+        }
+    }
+
+    @Override
+    public String searchContactByNum(ContactModel contact) {
+        try{
+            Path path = Paths.get("C:\\Users\\sophi\\IdeaProjects\\ContactApp\\ContactApp.txt");
+
+            List<String> strings;
+
+            List<String> values = new ArrayList<>();
+
+            if(Files.exists(path)){
+                strings = Files.readAllLines(path);
+                int length = strings.size();
+                if(strings.size() == 0){
+                    return "No Contact exists with name: " + contact.getName();
+                }else{
+                    for(int i = 0; i < length; i++){
+                        if(strings.get(i).split(":")[1].equalsIgnoreCase(contact.getContact())){
+                            values.add(strings.get(i));
+                        }
+                    }
+                }
+            }
+
+            return values.toString();
+
+        }catch (Exception e) {
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+            return exceptionAsString;
+        }
     }
 }
